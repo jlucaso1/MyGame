@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj15jnn83pnsb"]
+
+[ext_resource type="PackedScene" uid="uid://dmxdyem5u8iys" path="res://player.tscn" id="1_jurg0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_uctj5"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(50, 50)
+
+[node name="Player" parent="." instance=ExtResource("1_jurg0")]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Background"]
+scale = Vector2(10, 10)
+texture = SubResource("CanvasTexture_uctj5")
+centered = false
