@@ -12,11 +12,14 @@ signal fruit_picked(id: String)
 		
 @onready var input = $PlayerInput
 
+@onready var audio_player = $AudioPlayer as AudioStreamPlayer2D
+
 func _ready():
 	# Set the camera as current if we are this player.
 	if player != multiplayer.get_unique_id():
 		input.set_process(false)
 		$Sprite2D.modulate = Color(Color.DARK_GRAY)
+		audio_player.volume_db = -20
 	else:
 		z_index = 10
 
@@ -29,5 +32,6 @@ func _on_area_entered(area: Area2D):
 @rpc("call_local")
 func _add_point():
 	points += 1
+	audio_player.play()
 	if player == multiplayer.get_unique_id():
 			get_window().title = "Coins: " + str(points)

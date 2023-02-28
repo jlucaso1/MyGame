@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw8yxyk5vqkov"]
+[gd_scene load_steps=7 format=3 uid="uid://dw8yxyk5vqkov"]
 
 [ext_resource type="Script" path="res://Scripts/player_input.gd" id="1_0tw0h"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_6fc64"]
+[ext_resource type="AudioStream" uid="uid://bklbe408ej30g" path="res://Sounds/collect.mp3" id="3_dv2eq"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8x6en"]
 
@@ -38,5 +39,9 @@ script = ExtResource("1_0tw0h")
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_imi3g")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_dv2eq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
