@@ -17,6 +17,8 @@ func _ready():
 	if player != multiplayer.get_unique_id():
 		input.set_process(false)
 		$Sprite2D.modulate = Color(Color.DARK_GRAY)
+	else:
+		z_index = 10
 
 func _on_area_entered(area: Area2D):
 	if not multiplayer.is_server(): return
