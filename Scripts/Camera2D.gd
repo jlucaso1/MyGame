@@ -1,6 +1,6 @@
 extends Camera2D
 
-@onready var board_size = %Config.get("board_size")
+@onready var board_size = Config.board_size
 @export var zoom_factor = 1.0
 
 func _ready():

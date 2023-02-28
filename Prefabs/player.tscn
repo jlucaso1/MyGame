@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmxdyem5u8iys"]
+[gd_scene load_steps=6 format=3 uid="uid://dw8yxyk5vqkov"]
+
+[ext_resource type="Script" path="res://Scripts/player_input.gd" id="1_0tw0h"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_6fc64"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8x6en"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03nil"]
 size = Vector2(1, 1)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_imi3g"]
+properties/0/path = NodePath(".:player")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:points")
+properties/2/spawn = true
+properties/2/sync = true
+
 [node name="Player" type="Area2D"]
 z_index = 1
+script = ExtResource("1_6fc64")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.964706, 0, 1)
+modulate = Color(0, 1, 0, 1)
 texture = SubResource("CanvasTexture_8x6en")
 centered = false
 
@@ -17,3 +32,11 @@ centered = false
 position = Vector2(0.5, 0.5)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_03nil")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("1_0tw0h")
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_imi3g")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

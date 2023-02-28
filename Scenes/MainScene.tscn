@@ -1,48 +1,36 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpnrvb665chkl"]
+[gd_scene load_steps=6 format=3 uid="uid://c20a76aqc3lfo"]
 
-[ext_resource type="Script" path="res://Camera2D.gd" id="1_dv6di"]
-[ext_resource type="PackedScene" uid="uid://dmxdyem5u8iys" path="res://Prefabs/player.tscn" id="1_jurg0"]
-[ext_resource type="Script" path="res://Background.gd" id="2_rghqf"]
-[ext_resource type="Script" path="res://player.gd" id="3_6gdp8"]
-[ext_resource type="Script" path="res://Config.gd" id="4_c34b6"]
-[ext_resource type="PackedScene" uid="uid://chwgesqet5ty5" path="res://Prefabs/fruit.tscn" id="6_yldxu"]
-[ext_resource type="Script" path="res://FruitController.gd" id="7_svmde"]
-[ext_resource type="Script" path="res://GameState.gd" id="8_nh5hv"]
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_3xre4"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_iy7og"]
+[ext_resource type="Script" path="res://Scripts/Background.gd" id="2_g3tby"]
+[ext_resource type="Script" path="res://Scripts/FruitController.gd" id="7_krfah"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_uctj5"]
 
 [node name="MainScene" type="Node2D"]
+script = ExtResource("1_3xre4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(50, 50)
-script = ExtResource("1_dv6di")
+script = ExtResource("1_iy7og")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = SubResource("CanvasTexture_uctj5")
 centered = false
-script = ExtResource("2_rghqf")
+script = ExtResource("2_g3tby")
 
-[node name="Player" parent="." instance=ExtResource("1_jurg0")]
-script = ExtResource("3_6gdp8")
-
-[node name="Config" type="Node" parent="."]
+[node name="MultiplayerObjects" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("4_c34b6")
-board_size = Vector2(5, 5)
-
-[node name="Fruit" parent="." instance=ExtResource("6_yldxu")]
-position = Vector2(3, 0)
 
 [node name="FruitController" type="Node" parent="."]
-script = ExtResource("7_svmde")
+unique_name_in_owner = true
+script = ExtResource("7_krfah")
 
 [node name="Timer" type="Timer" parent="FruitController"]
-autostart = true
 
-[node name="GameState" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("8_nh5hv")
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Prefabs/player.tscn")
+spawn_path = NodePath("../MultiplayerObjects")
 
-[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
-[connection signal="timeout" from="FruitController/Timer" to="FruitController" method="_on_timer_timeout"]
+[connection signal="timeout" from="FruitController/Timer" to="FruitController" method="_on_timer_timeout" flags=18]
