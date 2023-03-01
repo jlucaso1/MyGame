@@ -28,9 +28,10 @@ unique_name_in_owner = true
 script = ExtResource("7_krfah")
 
 [node name="Timer" type="Timer" parent="FruitController"]
+wait_time = 0.199
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Prefabs/player.tscn")
+_spawnable_scenes = PackedStringArray("res://Prefabs/player.tscn", "res://Prefabs/fruit.tscn")
 spawn_path = NodePath("../MultiplayerObjects")
 
 [connection signal="timeout" from="FruitController/Timer" to="FruitController" method="_on_timer_timeout" flags=18]

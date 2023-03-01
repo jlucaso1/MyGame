@@ -26,12 +26,12 @@ func _ready() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if not multiplayer.is_server(): return
 	if area.is_in_group("Fruit"):
-		emit_signal("fruit_picked", area.position)
-		_add_point.rpc()
+		emit_signal("fruit_picked", area.name)
+		points += 1
+		_on_player_scored.rpc()
 		
 @rpc("call_local")
-func _add_point() -> void:
-	points += 1
+func _on_player_scored() -> void:
 	audio_player.play()
 	if player == multiplayer.get_unique_id():
 			get_window().title = "Coins: " + str(points)

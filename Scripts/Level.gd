@@ -34,14 +34,9 @@ func add_player(id: int) -> void:
 	character.name = str(id)
 	character.points = 0
 	character.position = Vector2(0,0)
-	character.connect("fruit_picked", deleteFruit)
+	character.connect("fruit_picked", $FruitController.delete_fruit)
 	$MultiplayerObjects.add_child(character, true)
 
-
-func deleteFruit(fruit_position: Vector2) -> void:
-	$FruitController.delete_fruit.rpc(fruit_position)
-
-@rpc("call_local")
 func del_sync_item(id: int) -> void:
 	if not $MultiplayerObjects.has_node(str(id)):
 		return
