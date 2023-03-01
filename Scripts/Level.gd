@@ -3,7 +3,7 @@ extends Node2D
 
 const SPAWN_RANDOM := 5.0
 
-func _ready():
+func _ready() -> void:
 	# We only need to spawn players on the server.
 	if not multiplayer.is_server():
 		return
@@ -20,14 +20,14 @@ func _ready():
 		add_player(1)
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	if not multiplayer.is_server():
 		return
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_sync_item)
 
 
-func add_player(id: int):
+func add_player(id: int) -> void:
 	var character = preload("res://Prefabs/player.tscn").instantiate()
 	# Set player id.
 	character.player = id
@@ -38,11 +38,11 @@ func add_player(id: int):
 	$MultiplayerObjects.add_child(character, true)
 
 
-func deleteFruit(fruit_position: Vector2):
+func deleteFruit(fruit_position: Vector2) -> void:
 	$FruitController.delete_fruit.rpc(fruit_position)
 
 @rpc("call_local")
-func del_sync_item(id: int):
+func del_sync_item(id: int) -> void:
 	if not $MultiplayerObjects.has_node(str(id)):
 		return
 	$MultiplayerObjects.get_node(str(id)).queue_free()

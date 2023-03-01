@@ -3,26 +3,25 @@ extends Node
 @onready var player := $".."
 
 var commands := {
-	"ui_right": func lambda(): player.position.x += 1,
-	"ui_left": func lambda(): player.position.x -= 1,
-	"ui_up": func lambda(): player.position.y -= 1,
-	"ui_down": func lambda(): player.position.y += 1
+	"ui_right": func(): player.position.x += 1,
+	"ui_left": func(): player.position.x -= 1,
+	"ui_up": func(): player.position.y -= 1,
+	"ui_down": func(): player.position.y += 1
 }
 
 var limiters := {
-	"ui_right": func lambda(): return player.position.x + 1 < board_size.x,
-	"ui_left": func lambda(): return player.position.x > 0,
-	"ui_up": func lambda(): return player.position.y > 0,
-	"ui_down": func lambda(): return player.position.y + 1 < board_size.y,
+	"ui_right": func(): return player.position.x + 1 < board_size.x,
+	"ui_left": func(): return player.position.x > 0,
+	"ui_up": func(): return player.position.y > 0,
+	"ui_down": func(): return player.position.y + 1 < board_size.y,
 }
 
 
-
-func _process(_delta):
+func _process(_delta: float) -> void:
 	_process_commands()
 
 @rpc("call_local")
-func _callback(action):
+func _callback(action: String) -> void:
 	if limiters.has(action) && !limiters[action].call(): return
 	commands[action].call()
 	
