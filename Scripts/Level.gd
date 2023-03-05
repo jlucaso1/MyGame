@@ -7,10 +7,9 @@ func _ready() -> void:
 	# We only need to spawn players on the server.
 	if not multiplayer.is_server():
 		return
-
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_sync_item)
-
+	DisplayServer.warp_mouse(Vector2i(100,100))
 	# Spawn already connected players.
 	for id in multiplayer.get_peers():
 		add_player(id)

@@ -20,6 +20,14 @@ run/low_processor_mode=true
 
 Config="*res://Scripts/Config.gd"
 
+[display]
+
+window/size/viewport_width=256
+window/size/viewport_height=256
+window/size/window_width_override=1000
+window/size/window_height_override=1000
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

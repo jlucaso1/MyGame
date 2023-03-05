@@ -1,19 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://c20a76aqc3lfo"]
+[gd_scene load_steps=5 format=3 uid="uid://c20a76aqc3lfo"]
 
 [ext_resource type="Script" path="res://Scripts/Level.gd" id="1_3xre4"]
-[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_iy7og"]
 [ext_resource type="Script" path="res://Scripts/Background.gd" id="2_g3tby"]
 [ext_resource type="Script" path="res://Scripts/FruitController.gd" id="7_krfah"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_uctj5"]
 
 [node name="MainScene" type="Node2D"]
+scale = Vector2(25, 25)
 script = ExtResource("1_3xre4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(50, 50)
-script = ExtResource("1_iy7og")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = SubResource("CanvasTexture_uctj5")
@@ -33,5 +31,16 @@ wait_time = 0.199
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Prefabs/player.tscn", "res://Prefabs/fruit.tscn")
 spawn_path = NodePath("../MultiplayerObjects")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 6
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 43.0
+offset_bottom = 29.0
+text = "Oi"
 
 [connection signal="timeout" from="FruitController/Timer" to="FruitController" method="_on_timer_timeout" flags=18]
